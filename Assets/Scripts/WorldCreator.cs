@@ -51,11 +51,14 @@ public class WorldCreator : MonoBehaviour
     {
         foreach (var addition in additions)
         {
-            if (Random.value < addition.spawnChance) SpawnAddition(addition.addition, platform);
+            if (Random.value >= addition.spawnChance) continue;
+
+            SpawnAddition(addition.addition, platform);
+            break;
         }
     }
 
-    void SpawnAddition(AdditionBehaviour addition, Transform platform)
+    static void SpawnAddition(AdditionBehaviour addition, Transform platform)
     {
         var additionInstance = Instantiate(addition, platform);
         additionInstance.transform.localPosition = Vector3.zero;
@@ -85,25 +88,4 @@ public class WorldCreator : MonoBehaviour
         Gizmos.DrawLine(Vector3.left, Vector3.left + Vector3.up * platformMinYDst);
         Gizmos.DrawLine(Vector3.right, Vector3.right + Vector3.up * platformMaxYDst);
     }
-}
-
-public interface IPickRandom
-{
-    float GetChance();
-}
-
-[System.Serializable]
-public struct Addition : IPickRandom
-{
-    public AdditionBehaviour addition;
-    public float spawnChance;
-    public float GetChance() => spawnChance;
-}
-
-[System.Serializable]
-public struct Platform : IPickRandom
-{
-    public PlatformBehaviour platform;
-    public float spawnChance;
-    public float GetChance() => spawnChance;
 }

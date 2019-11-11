@@ -7,7 +7,6 @@ public abstract class AdditionBehaviour : MonoBehaviour
     // ReSharper disable once SuggestBaseTypeForParameter, because unity message
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name + " -> " + gameObject.name);
         if (other.gameObject.CompareTag("Player"))
         {
             OnPlayerCollision(other.transform.GetComponent<Player>());

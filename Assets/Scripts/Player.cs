@@ -80,7 +80,8 @@ public class Player : MonoBehaviour
             movement.y = -hit.distance + 0.5f;
             currentYVel = jumpSpeed;
 
-            hit.transform.GetComponent<PlatformBehaviour>()?.OnPlayerCollision(this);
+            var platformBehaviour = hit.transform.GetComponent<PlatformBehaviour>();
+            if (platformBehaviour != null) platformBehaviour.OnPlayerCollision(this);
         }
 
         transform.position += movement * Time.deltaTime;

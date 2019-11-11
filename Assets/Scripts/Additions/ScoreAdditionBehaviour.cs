@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ScoreAdditionBehaviour : AdditionBehaviour
 {
+    public string scoreId;
     public int scoreToAdd;
     public ParticleSystem onCollectedParticlesPrefab;
 
     protected override void OnPlayerCollision(Player player)
     {
-        //TODO: Score.
-        // Destroy for now
+        //TODO: onCollectedParticlesPrefab.
+        ScoreManager.Instance.AddScore(scoreId, scoreToAdd);
         Destroy(gameObject);
     }
 
