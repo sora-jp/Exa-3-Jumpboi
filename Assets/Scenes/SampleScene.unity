@@ -178,7 +178,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.054, g: 0.054, b: 0.054, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -352,14 +352,23 @@ MonoBehaviour:
   tracked: {fileID: 1366921814}
   firstPlatform: {fileID: 1426000870}
   platforms:
-  - platform: {fileID: 5725587337967579541, guid: 404b99590a1f8e24fa2962a0bfa338a2,
+  - platform: {fileID: -5372813229151574938, guid: 404b99590a1f8e24fa2962a0bfa338a2,
+      type: 3}
+    spawnChance: 8
+  - platform: {fileID: 1881406957235056470, guid: 2e59527e461ebc245b95421c252ec7c6,
       type: 3}
     spawnChance: 1
-  additions: []
+  additions:
+  - addition: {fileID: 2087046439011074292, guid: 695aaf2e90ea2f247a6c4e4236955742,
+      type: 3}
+    spawnChance: 0.3
+  - addition: {fileID: 3828170718674040797, guid: ac162dc0cae6e0040b629a11ea97b1f9,
+      type: 3}
+    spawnChance: 0.1
   ceiling: 10
   platformXRange: 4.5
-  platformMinYDst: 3.5
-  platformMaxYDst: 4.5
+  platformMinYDst: 5
+  platformMaxYDst: 6
 --- !u!4 &1166074107
 Transform:
   m_ObjectHideFlags: 0
@@ -387,6 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27afe074fb8c01e42ad4657567b9af91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tracked: {fileID: 1366921814}
+  bgRow: {fileID: 6509999743685780753, guid: 1b9a4eb76501f5d4a8cd4ea54bcbed2e, type: 3}
+  spaceBetween: 1
+  startY: -25
+  ceiling: 10
 --- !u!1 &1366921813
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,9 +412,10 @@ GameObject:
   - component: {fileID: 1366921814}
   - component: {fileID: 1366921815}
   - component: {fileID: 1366921816}
+  - component: {fileID: 1366921817}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366921813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1752241825}
@@ -458,13 +473,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af501712834dedb46afd6bb72a13e59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 27
-  jumpSpeed: 19
+  gravity: 30
+  jumpSpeed: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  xSpeed: 7
+  xSpeed: 10.5
   xSpeedSmoothTime: 0.07
+  jumpingSprite: {fileID: 21300000, guid: 0e5b0a23b6cff074c96bd94db3179749, type: 3}
+  fallingSprite: {fileID: 21300000, guid: 2b9dedd5aa403504cbd9ffa73b63d337, type: 3}
+  renderer: {fileID: 1752241826}
+  graphics: {fileID: 1752241824}
+  currentYVel: 0
+--- !u!50 &1366921817
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366921813}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1426000870
 GameObject:
   m_ObjectHideFlags: 0

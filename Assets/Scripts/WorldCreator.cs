@@ -18,18 +18,19 @@ public class WorldCreator : MonoBehaviour
     public float platformMinYDst;
     public float platformMaxYDst;
 
-    GameObject m_lastPlatform;
+    Transform m_lastPlatform;
 
     void Awake()
     {
-        m_lastPlatform = firstPlatform;
+        m_lastPlatform = firstPlatform.transform;
     }
 
     void Update()
     {
-        while (m_lastPlatform.transform.position.y < ceiling + tracked.position.y)
+        while (m_lastPlatform.position.y < ceiling + tracked.position.y)
         {
-            m_lastPlatform = SpawnPlatform();
+            m_lastPlatform = SpawnPlatform().transform;
+            SpawnAdditionsForPlatform(m_lastPlatform);
         }
     }
 
@@ -43,7 +44,22 @@ public class WorldCreator : MonoBehaviour
 
         platform.transform.position = pos;
 
-        return platform;
+        return platform.gameObject;
+    }
+
+    void SpawnAdditionsForPlatform(Transform platform)
+    {
+        foreach (var addition in additions)
+        {
+            if (Random.value < addition.spawnChance) SpawnAddition(addition.addition, platform);
+        }
+    }
+
+    void SpawnAddition(AdditionBehaviour addition, Transform platform)
+    {
+        var additionInstance = Instantiate(addition, platform);
+        additionInstance.transform.localPosition = Vector3.zero;
+        additionInstance.PositionOnPlatform(platform);
     }
 
     static T PickRandom<T>(T[] list) where T : IPickRandom
@@ -71,21 +87,23 @@ public class WorldCreator : MonoBehaviour
     }
 }
 
-interface IPickRandom
+public interface IPickRandom
 {
     float GetChance();
 }
 
 [System.Serializable]
-public struct Addition
+public struct Addition : IPickRandom
 {
-
+    public AdditionBehaviour addition;
+    public float spawnChance;
+    public float GetChance() => spawnChance;
 }
 
 [System.Serializable]
 public struct Platform : IPickRandom
 {
-    public GameObject platform;
+    public PlatformBehaviour platform;
     public float spawnChance;
     public float GetChance() => spawnChance;
 }
