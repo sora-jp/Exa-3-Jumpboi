@@ -5,18 +5,25 @@ using UnityEngine;
 
 public class WorldCreator : MonoBehaviour
 {
-    public Transform tracked;
-    public GameObject firstPlatform;
+    // ReSharper disable InconsistentNaming
+    #pragma warning disable 649
+    
+    [Header("Scene-specific information")]
+    [SerializeField] Transform tracked;
+    [SerializeField] GameObject firstPlatform;
 
-    public Platform[] platforms;
-    public Addition[] additions;
+    [Header("Objects")]
+    [SerializeField] Platform[] platforms;
+    [SerializeField] Addition[] additions;
 
-    public float ceiling;
-
-    public float platformXRange;
-
-    public float platformMinYDst;
-    public float platformMaxYDst;
+    [Header("Spawning properties")]
+    [SerializeField] float ceiling;
+    [SerializeField] float platformXRange;
+    [SerializeField] float platformMinYDst;
+    [SerializeField] float platformMaxYDst;
+    
+    #pragma warning restore 649
+    // ReSharper restore InconsistentNaming
 
     Transform m_lastPlatform;
 

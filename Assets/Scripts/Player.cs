@@ -1,20 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public float gravity;
-    public float jumpSpeed;
-    public LayerMask groundLayer;
-    public float xSpeed;
-    public float xSpeedSmoothTime;
-
-    public Sprite jumpingSprite, fallingSprite;
-    public new SpriteRenderer renderer;
-    public GameObject graphics;
+    // ReSharper disable InconsistentNaming
+    #pragma warning disable 649
     
-    public float currentYVel;
+    [Header("Movement")]
+    [SerializeField] float gravity;
+    [SerializeField] float jumpSpeed;
+    [SerializeField] float xSpeed;
+    [SerializeField] float xSpeedSmoothTime;
+
+    [Header("Ground detection")] 
+    [SerializeField] float rayHorizDst;
+    [SerializeField] LayerMask groundLayer;
+
+    [Header("Graphics")]
+    [SerializeField] Sprite jumpingSprite, fallingSprite;
+    [SerializeField] new SpriteRenderer renderer;
+    [SerializeField] GameObject graphics;
+    
+    #pragma warning restore 649
+    // ReSharper restore InconsistentNaming
+    
+    [HideInInspector] public float currentYVel;
 
     float m_currentXVel;
     float m_targetXVel;
@@ -91,10 +103,19 @@ public class Player : MonoBehaviour
     {
         hit = new RaycastHit2D();
         if (currentYVel >= 0) return false;
-        
+
         var dst = 0.5f - currentYVel * Time.deltaTime;
-        hit = Physics2D.Raycast(transform.position, Vector2.down, dst, groundLayer);
         
+        hit = Physics2D.Raycast(transform.position - Vector3.right * rayHorizDst / 2, Vector2.down, dst, groundLayer);
+        if (hit) return true;
+
+        hit = Physics2D.Raycast(transform.position + Vector3.right * rayHorizDst / 2, Vector2.down, dst, groundLayer);
         return hit;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position - Vector3.right * rayHorizDst / 2, transform.position + Vector3.right * rayHorizDst / 2);
     }
 }
