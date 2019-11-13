@@ -7,8 +7,12 @@
     }
     SubShader
     {
-        // No culling or depth
-        Cull Off ZWrite Off ZTest Always
+		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+		LOD 100
+
+		// Post-multiplied subtractive blending, basically finalColor = screenColor - (myColor * myAlpha)
+		Blend SrcAlpha One
+		BlendOp RevSub
 
         Pass
         {
@@ -43,9 +47,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-				col.rgb -= round(_Transition * 4) / 4;
-                return col;
+                return float4(1, 1, 1, round(_Transition * 4) / 4);
             }
             ENDCG
         }

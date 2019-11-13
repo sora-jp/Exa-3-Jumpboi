@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // ReSharper disable InconsistentNaming
-    #pragma warning disable 649
+    #pragma warning disable 649 // Field never assigned
     
     [Header("Movement")]
     [SerializeField] float gravity;
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] Sprite jumpingSprite, fallingSprite;
     [SerializeField] new SpriteRenderer renderer;
     [SerializeField] GameObject graphics;
+    [SerializeField] ParticleSystem deathParticles;
     
     #pragma warning restore 649
     // ReSharper restore InconsistentNaming
@@ -40,7 +41,8 @@ public class Player : MonoBehaviour
     float m_halfScreenHorizSize;
     Vector3 m_screenOffsetToEdge;
 
-    void Awake()
+    // Needs to be start, in order to give the camera enough time to update it's size
+    void Start()
     {
         // orthographicSize is cameraHeight/2, aspect is cameraWidth/cameraHeight.
         m_halfScreenHorizSize = Camera.main.orthographicSize * Camera.main.aspect;
@@ -147,6 +149,15 @@ public class Player : MonoBehaviour
         // Check right ray
         hit = Physics2D.Raycast(transform.position + Vector3.right * rayHorizDst / 2, Vector2.down, dst, groundLayer);
         return hit; // If this hits, we were grounded. Otherwise, we are falling
+    }
+
+    // Kills the player, and triggers an event saying that we died (oh no!)
+    public void KillPlayer()
+    {
+        deathParticles.transform.SetParent(null); // Become batman
+        deathParticles.Play();
+        gameObject.SetActive(false);
+        OnPlayerDeath?.Invoke();
     }
 
     // For debugging, draws a horizontal line to show the distance between the two ground check raycasts

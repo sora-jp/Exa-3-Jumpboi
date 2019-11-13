@@ -55,7 +55,7 @@
                 fixed4 col = tex2D(_MainTex, i.uv);
 
 				float xPx = i.uv.x * _PxPerUnit;
-				float xCur = (_Time.y % (_PxPerUnit / _Speed)) * _Speed * ((1.0 + _ShinePxWidth * 2)) - _ShinePxWidth;
+				float xCur = ((_Time.y * _Speed) % 1) * ((_PxPerUnit + _ShinePxWidth * 2)) - _ShinePxWidth;
 
 				col *= (xPx > xCur&& xPx < xCur + _ShinePxWidth) ? _ShineTint : _NShineTint;
 

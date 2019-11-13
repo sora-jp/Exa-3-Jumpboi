@@ -17,6 +17,6 @@ public class LavaPositioner : MonoBehaviour
     void Update()
     {
         m_maxY = Mathf.Max(tracked.position.y, m_maxY);
-        transform.position = Vector3.up * (m_maxY - heightOffset);
+        transform.position = Vector3.up * Mathf.Max(m_maxY - heightOffset, transform.position.y);
     }
 }
