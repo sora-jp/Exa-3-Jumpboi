@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -11,6 +12,8 @@ public class ScoreManager : MonoBehaviour
     public int CurrentScore => _scoreIdToScore.Sum(v => v.Value);
 
     Dictionary<string, int> _scoreIdToScore;
+
+    public static event Action<Score[]> OnScoresUpdated;
 
     void Awake()
     {
@@ -35,4 +38,14 @@ public class ScoreManager : MonoBehaviour
         if (_scoreIdToScore.ContainsKey(id)) _scoreIdToScore[id] += score;
         else SetScore(id, score);
     }
+
+    public void SubmitCurrentScore(string playerName)
+    {
+
+    }
+}
+
+public struct Score
+{
+
 }

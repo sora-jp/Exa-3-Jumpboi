@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject graphics;
     [SerializeField] ParticleSystem deathParticles;
     
-    #pragma warning restore 649
+    #pragma warning restore 649 // Field never assigned
     // ReSharper restore InconsistentNaming
 
     public static event Action OnPlayerDeath;
