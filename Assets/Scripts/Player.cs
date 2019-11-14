@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Don't do anything if the game isn't started yet
+        if (!GameManager.Instance.GameStarted) return;
         UpdateMovement();
         WrapMovement();
         UpdateGraphics();
@@ -117,7 +119,7 @@ public class Player : MonoBehaviour
         if (IsGrounded(out var hit)) // Collided with a platform
         {
             // Make sure we always end out movement on the platform, instead of going through it
-            movement.y = -hit.distance + 0.5f;
+            movement.y = (-hit.distance + 0.5f) / Time.deltaTime;
 
             // Jump
             currentYVel = jumpSpeed;

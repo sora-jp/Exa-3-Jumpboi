@@ -5,45 +5,38 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player;
-    public float smoothTime;
-
     public int targetWidth;
     public int targetHeight;
 
-    float targetAr;
-    float curAr;
+    float m_targetAr;
+    float m_curAr;
 
-    Vector3 vel;
-    Camera cam;
-    int lastWidth, lastHeight;
+    Camera m_cam;
+    int m_lastWidth, m_lastHeight;
 
     void Awake()
     {
-        cam = GetComponent<Camera>();
-        targetAr = (float) targetWidth / targetHeight;
-        UpdateCurrentAR();
+        m_cam = GetComponent<Camera>();
+        m_targetAr = (float) targetWidth / targetHeight;
+        UpdateCurrentAr();
         UpdateCameraRect();
     }
 
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, Vector3.up * player.position.y + Vector3.back * 10,
-            ref vel, smoothTime);
-
-        if (Screen.width != lastWidth || Screen.height != lastHeight) UpdateCurrentAR();
+        if (Screen.width != m_lastWidth || Screen.height != m_lastHeight) UpdateCurrentAr();
         UpdateCameraRect();
     }
 
-    void UpdateCurrentAR()
+    void UpdateCurrentAr()
     {
-        curAr = (float)Screen.width / Screen.height;
-        lastWidth = Screen.width;
-        lastHeight = Screen.height;
+        m_curAr = (float)Screen.width / Screen.height;
+        m_lastWidth = Screen.width;
+        m_lastHeight = Screen.height;
     }
 
     void UpdateCameraRect()
     {
-        cam.rect = new Rect(0.5f - (targetAr / curAr) / 2, 0, targetAr / curAr, 1);
+        m_cam.rect = new Rect(0.5f - (m_targetAr / m_curAr) / 2, 0, m_targetAr / m_curAr, 1);
     }
 }

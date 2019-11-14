@@ -29,7 +29,7 @@ public class NameSelector : MonoBehaviour
 
     public void FinishNameInput()
     {
-        ScoreManager.Instance.SubmitCurrentScore(GetName());
+        LeaderboardManager.Instance.SubmitScore(GetName(), ScoreManager.Instance.CurrentScore);
         nextSelectable.Select();
         StartCoroutine(_AnimateToLeaderboard());
     }
