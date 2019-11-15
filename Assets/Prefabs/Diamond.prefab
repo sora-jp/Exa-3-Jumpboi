@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175aef1863e942046836aad71da88f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectAudioEffect: coin
   scoreId: diamond
   scoreToAdd: 100
   onCollectedParticlesPrefab: {fileID: 0}

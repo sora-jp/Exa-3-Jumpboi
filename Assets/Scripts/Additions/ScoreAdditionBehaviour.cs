@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScoreAdditionBehaviour : AdditionBehaviour
 {
+    public string collectAudioEffect;
     public string scoreId;
     public int scoreToAdd;
     public ParticleSystem onCollectedParticlesPrefab;
@@ -11,6 +12,7 @@ public class ScoreAdditionBehaviour : AdditionBehaviour
     protected override void OnPlayerCollision(Player player)
     {
         //TODO: onCollectedParticlesPrefab.
+        AudioManager.PlayEffect(collectAudioEffect);
         ScoreManager.Instance.AddScore(scoreId, scoreToAdd);
         Destroy(gameObject);
     }

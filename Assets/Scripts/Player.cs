@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     [SerializeField] new SpriteRenderer renderer;
     [SerializeField] GameObject graphics;
     [SerializeField] ParticleSystem deathParticles;
+
+    [Header("SFX")] 
+    [SerializeField] string jumpEffect;
+    [SerializeField] string deathEffect;
     
     #pragma warning restore 649 // Field never assigned
     // ReSharper restore InconsistentNaming
@@ -118,6 +122,9 @@ public class Player : MonoBehaviour
 
         if (IsGrounded(out var hit)) // Collided with a platform
         {
+            // Audio effect
+            AudioManager.PlayEffect(jumpEffect);
+
             // Make sure we always end out movement on the platform, instead of going through it
             movement.y = (-hit.distance + 0.5f) / Time.deltaTime;
 
@@ -156,6 +163,7 @@ public class Player : MonoBehaviour
     // Kills the player, and triggers an event saying that we died (oh no!)
     public void KillPlayer()
     {
+        AudioManager.PlayEffect(deathEffect);
         deathParticles.transform.SetParent(null); // Become batman
         deathParticles.Play();
         gameObject.SetActive(false);
