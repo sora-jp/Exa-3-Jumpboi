@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityBase.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,11 +41,22 @@ public class AudioManager : SerializedMonoBehaviour
 
     public void Play(string effect)
     {
+        if (soundEffects == null) return;
         if (!soundEffects.ContainsKey(effect))
         {
             Debug.LogWarning($"Attempted to play non-existent audio effect {effect}.");
             return;
         }
         m_source.PlayOneShot(soundEffects[effect]);
+    }
+
+    public void Fade(float time)
+    {
+        m_source.AnimateVolume(0, time, EaseMode.Step4);
+    }
+
+    public void SetVolume(float vol)
+    {
+        m_source.volume = vol;
     }
 }

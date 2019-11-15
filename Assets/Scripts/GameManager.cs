@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
 
     public string StartGameButton;
+    public float audioFadeTime;
     [HideInInspector] public bool GameStarted = false;
 
     void Awake()
@@ -15,6 +16,22 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+        AudioManager.Instance.SetVolume(1);
+    }
+
+    void OnEnable()
+    {
+        Player.OnPlayerDeath += FadeMusic;
+    }
+
+    void OnDisable()
+    {
+        Player.OnPlayerDeath -= FadeMusic;
+    }
+    
+    void FadeMusic()
+    {
+        AudioManager.Instance.Fade(audioFadeTime);
     }
 
     void Update()

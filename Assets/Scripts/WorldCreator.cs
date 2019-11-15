@@ -65,11 +65,13 @@ public class WorldCreator : MonoBehaviour
         }
     }
 
-    static void SpawnAddition(AdditionBehaviour addition, Transform platform)
+    void SpawnAddition(AdditionBehaviour addition, Transform platform)
     {
-        var additionInstance = Instantiate(addition, platform);
-        additionInstance.transform.localPosition = Vector3.zero;
-        additionInstance.PositionOnPlatform(platform);
+        var additionInstance = Instantiate(addition, transform);
+        additionInstance.transform.position = platform.position;
+        var overridePosition = additionInstance.GetComponent<AdditionPositionOverrideBehaviour>();
+        if (overridePosition != null) overridePosition.PositionOnPlatform(platform);
+        else additionInstance.PositionOnPlatform(platform);
     }
 
     static T PickRandom<T>(T[] list) where T : IPickRandom

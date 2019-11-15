@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1881406957235056470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8236606136580068434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f27a0946a5904954a8bcae4510978586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  springMultiplicationFactor: 1.5
 --- !u!61 &1325693890194693107
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39,6 +26,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.875, y: 0.375}
   m_EdgeRadius: 0
+--- !u!114 &1881406957235056470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236606136580068434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27a0946a5904954a8bcae4510978586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springMultiplicationFactor: 1.35
+  springTriggerName: spring_extend
+  springAnimator: {fileID: 1182398434252638526}
 --- !u!1 &8263087120444498850
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,6 +51,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3991871139648536575}
   - component: {fileID: 4778327685207491181}
+  - component: {fileID: 1182398434252638526}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -119,6 +122,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1182398434252638526
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8263087120444498850}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e5a231b331fd6f45b2bb9eed4086ee5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4412141139916776903
 PrefabInstance:
   m_ObjectHideFlags: 0
