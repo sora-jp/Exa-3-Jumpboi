@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharacterSelector : Selectable, ISubmitHandler
+public class CharacterSelector : AudibleSelectable
 {
     public Image charImg;
 
@@ -61,6 +61,7 @@ public class CharacterSelector : Selectable, ISubmitHandler
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        PlayMoveSfx();
 
         while (charIdx < 0) charIdx += m_charSprites.Length;
         while (charIdx >= m_charSprites.Length) charIdx -= m_charSprites.Length;
@@ -68,8 +69,9 @@ public class CharacterSelector : Selectable, ISubmitHandler
         charImg.overrideSprite = m_charSprites[charIdx];
     }
 
-    public void OnSubmit(BaseEventData eventData)
+    public override void OnSubmit(BaseEventData eventData)
     {
+        base.OnSubmit(eventData);
         if (FindSelectableOnRight() == null)
         {
             GetComponentInParent<NameSelector>().FinishNameInput();

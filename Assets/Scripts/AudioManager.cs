@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityBase.Animations;
@@ -30,6 +31,7 @@ public class AudioManager : SerializedMonoBehaviour
 
     void ChangeMusic(Scene current, Scene next)
     {
+        m_source.volume = 1;
         if (m_curPlayingIdx == next.buildIndex) return;
         if (next.buildIndex >= sceneMusic.Length) return;
         m_curPlayingIdx = next.buildIndex;
@@ -52,7 +54,19 @@ public class AudioManager : SerializedMonoBehaviour
 
     public void Fade(float time)
     {
+        IEnumerator _delay(float t, Action a)
+        {
+            yield return new WaitForSeconds(t);
+            a();
+        }
+
         m_source.AnimateVolume(0, time, EaseMode.Step4);
+
+        StartCoroutine(_delay(time, () =>
+        {
+            m_source.Stop();
+            m_source.volume = 1;
+        }));
     }
 
     public void SetVolume(float vol)

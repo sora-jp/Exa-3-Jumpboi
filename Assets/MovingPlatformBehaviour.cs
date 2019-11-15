@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatformBehaviour : MonoBehaviour
+public class MovingPlatformBehaviour : PlatformBehaviour
 {
     public float moveRangeX;
     public float sidePadding;
@@ -10,7 +10,7 @@ public class MovingPlatformBehaviour : MonoBehaviour
 
     float m_minX, m_maxX;
     float m_dst;
-    float m_curPos;
+    float m_curPos, m_xPos;
 
     void Start()
     {
@@ -23,7 +23,13 @@ public class MovingPlatformBehaviour : MonoBehaviour
 
     void Update()
     {
-        m_curPos = Mathf.PingPong(m_curPos + Time.deltaTime * unitsPerSec, m_dst);
-        transform.position = new Vector3(Mathf.Lerp(m_minX, m_maxX, m_curPos / m_dst), transform.position.y);
+        m_curPos += Time.deltaTime * unitsPerSec;
+        m_xPos = Mathf.Lerp(m_minX, m_maxX, Mathf.PingPong(m_curPos / m_dst, 1));
+        transform.position = new Vector3(Mathf.Round(m_xPos * 16) / 16, transform.position.y);
+    }
+
+    public override void OnPlayerCollision(Player player)
+    {
+        
     }
 }

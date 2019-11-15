@@ -410,7 +410,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 831496258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6d04c08c984974684b417b6a77866e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -427,7 +427,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -441,11 +441,14 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 831496261}
-  m_OnClick:
+  sfxMove: menu_move
+  sfxActivate: menu_select
+  playMoveSfx: 1
+  onClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 879270128}
-        m_MethodName: Quit
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1032,6 +1035,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: da0bf24abfd6a6a48bd9d0b4afd50fba, type: 3}
     - {fileID: 8300000, guid: 01f7ba58cf5258647813c9d953000be9, type: 3}
     - {fileID: 8300000, guid: 80dab223925be7d409a41e61bcf7878b, type: 3}
+    - {fileID: 8300000, guid: 0f0d94289bb37754b8eaf32ef6b4955f, type: 3}
+    - {fileID: 8300000, guid: 42200ab1214cf1e4fa18e14ea7ad641c, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -1050,7 +1055,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 5
     - Name: 
       Entry: 7
       Data: 
@@ -1084,6 +1089,30 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: menu_move
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: menu_select
+    - Name: $v
+      Entry: 10
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -1284,6 +1313,7 @@ GameObject:
   - component: {fileID: 1641388853}
   - component: {fileID: 1641388852}
   - component: {fileID: 1641388851}
+  - component: {fileID: 1641388855}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1370,6 +1400,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641388855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641388850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daae6550e75ed484b862c635b71a5bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1746006560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,8 +1423,8 @@ GameObject:
   - component: {fileID: 1746006561}
   - component: {fileID: 1746006564}
   - component: {fileID: 1746006563}
-  - component: {fileID: 1746006562}
   - component: {fileID: 1746006565}
+  - component: {fileID: 1746006562}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -1419,7 +1461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746006560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6d04c08c984974684b417b6a77866e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1436,7 +1478,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1450,7 +1492,10 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1746006563}
-  m_OnClick:
+  sfxMove: menu_move
+  sfxActivate: menu_select
+  playMoveSfx: 1
+  onClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 879270128}

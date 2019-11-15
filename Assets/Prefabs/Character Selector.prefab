@@ -266,6 +266,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4410430283828240427}
+  sfxMove: menu_move
+  sfxActivate: menu_select
+  playMoveSfx: 0
   charImg: {fileID: 4410430283828240427}
   charIdx: 0
 --- !u!1 &4410430283972409486
