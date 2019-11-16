@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObstacleAdditionBehaviour : AdditionBehaviour
 {
     public float offsetY;
+    public float xRange;
 
     protected override void OnPlayerCollision(Player player)
     {
@@ -15,18 +16,20 @@ public class ObstacleAdditionBehaviour : AdditionBehaviour
     {
         var m_halfScreenWidth = Camera.main.orthographicSize * Camera.main.aspect;
 
-        float x = 0;
-        if (platform.position.x > 0)
-        {
-            x = -(platform.position.x + m_halfScreenWidth);
-        }
-        else
-        {
-            x = m_halfScreenWidth - platform.position.x;
-        }
+        float x = Mathf.Round(Random.Range(-xRange, xRange) * 16) / 16;
+        //if (platform.position.x > 0)
+        //{
+        //    x = -(platform.position.x + m_halfScreenWidth);
+        //}
+        //else
+        //{
+        //    x = m_halfScreenWidth - platform.position.x;
+        //}
 
-        x /= 2;
+        //x /= 2;
 
-        transform.position = platform.position + Vector3.up * offsetY + Vector3.right * x;
+
+
+        transform.position = Vector3.up * (offsetY + platform.position.y) + Vector3.right * x;
     }
 }

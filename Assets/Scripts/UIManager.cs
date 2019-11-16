@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
 
     public float subscreenAnimDuration;
 
+
+    //TODO: Remove subscreens
     public CanvasGroup[] subScreens;
 
     void Awake()

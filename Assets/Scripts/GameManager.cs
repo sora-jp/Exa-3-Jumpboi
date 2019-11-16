@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        AudioManager.Instance.SetVolume(1);
     }
 
     void OnEnable()

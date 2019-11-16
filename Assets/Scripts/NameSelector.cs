@@ -12,7 +12,8 @@ public class NameSelector : MonoBehaviour
     public CharacterSelector[] charSelectors;
     public float animDuration;
     public CanvasGroup leaderBoardGroup;
-    public Selectable nextSelectable;
+    public AutoSelect nextSelectable;
+    public AutoSelect firstCharSelector;
 
     CanvasGroup m_group;
 
@@ -20,6 +21,8 @@ public class NameSelector : MonoBehaviour
     {
         m_group = GetComponent<CanvasGroup>();
         leaderBoardGroup.alpha = 0;
+        nextSelectable.enabled = false;
+        firstCharSelector.enabled = true;
     }
 
     public string GetName()
@@ -30,7 +33,8 @@ public class NameSelector : MonoBehaviour
     public void FinishNameInput()
     {
         LeaderboardManager.Instance.SubmitScore(GetName(), ScoreManager.Instance.CurrentScore);
-        nextSelectable.Select();
+        nextSelectable.enabled = true;
+        firstCharSelector.enabled = false;
         StartCoroutine(_AnimateToLeaderboard());
     }
 

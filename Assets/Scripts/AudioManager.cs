@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Sirenix.OdinInspector;
 using UnityBase.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : SerializedMonoBehaviour
 {
     public static AudioManager Instance { get; set; }
+    [Range(0, 1)] public float musicVolume;
+    [Range(0, 1)] public float sfxVolume;
+    public AudioSource musicSource, sfxSource;
     public AudioClip[] sceneMusic;
     public Dictionary<string, AudioClip> soundEffects;
 
-    AudioSource m_source;
     int m_curPlayingIdx = -1;
 
     void Awake()
@@ -24,53 +26,46 @@ public class AudioManager : SerializedMonoBehaviour
             return;
         }
         Instance = this;
-        m_source = GetComponent<AudioSource>();
         SceneManager.activeSceneChanged += ChangeMusic;
         DontDestroyOnLoad(gameObject);
+        if (musicSource == null || sfxSource == null) return;
+
+        musicSource.volume = musicVolume;
+        sfxSource.volume = sfxVolume;
     }
 
     void ChangeMusic(Scene current, Scene next)
     {
-        m_source.volume = 1;
+        if (musicSource == null) return;
+        musicSource.volume = musicVolume;
         if (m_curPlayingIdx == next.buildIndex) return;
         if (next.buildIndex >= sceneMusic.Length) return;
         m_curPlayingIdx = next.buildIndex;
-        m_source.clip = sceneMusic[next.buildIndex];
-        m_source.Play();
+        musicSource.clip = sceneMusic[next.buildIndex];
+        musicSource.Play();
     }
 
     public static void PlayEffect(string effect) => Instance.Play(effect);
 
     public void Play(string effect)
     {
-        if (soundEffects == null) return;
+        if (soundEffects == null || sfxSource == null) return;
         if (!soundEffects.ContainsKey(effect))
         {
             Debug.LogWarning($"Attempted to play non-existent audio effect {effect}.");
             return;
         }
-        m_source.PlayOneShot(soundEffects[effect]);
+
+        var newSfx = Instantiate(sfxSource, transform);
+        newSfx.clip = soundEffects[effect];
+        newSfx.Play();
+
+        Destroy(newSfx.gameObject, newSfx.clip.length + 0.1f);
     }
 
     public void Fade(float time)
     {
-        IEnumerator _delay(float t, Action a)
-        {
-            yield return new WaitForSeconds(t);
-            a();
-        }
-
-        m_source.AnimateVolume(0, time, EaseMode.Step4);
-
-        StartCoroutine(_delay(time, () =>
-        {
-            m_source.Stop();
-            m_source.volume = 1;
-        }));
-    }
-
-    public void SetVolume(float vol)
-    {
-        m_source.volume = vol;
+        if (musicSource == null) return;
+        musicSource.AnimateVolume(0, time, EaseMode.Step4);
     }
 }

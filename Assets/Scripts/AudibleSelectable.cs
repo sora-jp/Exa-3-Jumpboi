@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AudibleSelectable : Selectable, ISubmitHandler
@@ -8,7 +9,8 @@ public class AudibleSelectable : Selectable, ISubmitHandler
 
     public override void OnMove(AxisEventData eventData)
     {
-        if (playMoveSfx) PlayMoveSfx();
+        if (playMoveSfx && eventData.moveDir != MoveDirection.None) PlayMoveSfx();
+        Debug.Log($"{gameObject.name} mv -> {eventData.moveDir} ({eventData.moveVector})");
         base.OnMove(eventData);
     }
 
@@ -17,5 +19,9 @@ public class AudibleSelectable : Selectable, ISubmitHandler
         AudioManager.PlayEffect(sfxActivate);
     }
 
-    protected void PlayMoveSfx() => AudioManager.PlayEffect(sfxMove);
+    protected void PlayMoveSfx()
+    {
+        Debug.Log("PMSFX");
+        AudioManager.PlayEffect(sfxMove);
+    }
 }

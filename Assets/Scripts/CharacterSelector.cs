@@ -44,6 +44,7 @@ public class CharacterSelector : AudibleSelectable
 
     public override void OnMove(AxisEventData eventData)
     {
+        Debug.Log($"{gameObject.name} MOVE -> {eventData.moveDir} ({eventData.moveVector})");
         switch (eventData.moveDir)
         {
             case MoveDirection.Left:
@@ -62,6 +63,7 @@ public class CharacterSelector : AudibleSelectable
                 throw new ArgumentOutOfRangeException();
         }
         PlayMoveSfx();
+        Debug.Log($"{gameObject.name} PASS -> {eventData.moveDir} ({eventData.moveVector})");
 
         while (charIdx < 0) charIdx += m_charSprites.Length;
         while (charIdx >= m_charSprites.Length) charIdx -= m_charSprites.Length;

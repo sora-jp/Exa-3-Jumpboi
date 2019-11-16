@@ -13,4 +13,10 @@ public class AudibleButton : AudibleSelectable
         base.OnSubmit(eventData);
         onClick?.Invoke();
     }
+
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        base.OnPointerUp(eventData);
+        base.OnSubmit(eventData);
+    }
 }

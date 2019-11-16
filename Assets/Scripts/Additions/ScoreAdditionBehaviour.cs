@@ -11,9 +11,9 @@ public class ScoreAdditionBehaviour : AdditionBehaviour
 
     protected override void OnPlayerCollision(Player player)
     {
-        //TODO: onCollectedParticlesPrefab.
         AudioManager.PlayEffect(collectAudioEffect);
         ScoreManager.Instance.AddScore(scoreId, scoreToAdd);
+        if (onCollectedParticlesPrefab != null) Instantiate(onCollectedParticlesPrefab, transform.position, Quaternion.identity).Play();
         Destroy(gameObject);
     }
 
