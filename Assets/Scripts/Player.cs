@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Controls the player
+/// </summary>
 public class Player : MonoBehaviour
 {
     // ReSharper disable InconsistentNaming
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Don't do anything if the game isn't started yet
-        if (!GameManager.Instance.GameStarted) return;
+        if (!GameManager.Instance.gameStarted) return;
         UpdateMovement();
         WrapMovement();
         UpdateGraphics();

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class WorldCreator : MonoBehaviour
@@ -25,7 +23,7 @@ public class WorldCreator : MonoBehaviour
     #pragma warning restore 649
     // ReSharper restore InconsistentNaming
 
-    Transform m_lastPlatform;
+    Transform m_lastPlatform; // Last spawned platform
 
     void Awake()
     {
@@ -43,7 +41,7 @@ public class WorldCreator : MonoBehaviour
 
     GameObject SpawnPlatform()
     {
-        var platform = Instantiate(PickRandom(platforms).platform, transform);
+        var platform = Instantiate(GetRandomPlatform().platform, transform);
 
         Vector2 pos = m_lastPlatform.transform.position;
         pos.x = Random.Range(-platformXRange, platformXRange);
@@ -74,27 +72,19 @@ public class WorldCreator : MonoBehaviour
         else additionInstance.PositionOnPlatform(platform);
     }
 
-    static T PickRandom<T>(T[] list) where T : IPickRandom
+    Platform GetRandomPlatform()
     {
-        var sumChance = list.Sum(i => i.GetChance());
+        var sumChance = platforms.Sum(i => i.spawnChance);
         var chance = Random.Range(0, sumChance);
 
         float curChance = 0;
 
-        foreach (var t in list)
+        foreach (var t in platforms)
         {
-            curChance += t.GetChance();
+            curChance += t.spawnChance;
             if (curChance > chance) return t;
         }
 
         return default;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.left * platformXRange, Vector3.right * platformXRange);
-        Gizmos.DrawLine(Vector3.left, Vector3.left + Vector3.up * platformMinYDst);
-        Gizmos.DrawLine(Vector3.right, Vector3.right + Vector3.up * platformMaxYDst);
     }
 }

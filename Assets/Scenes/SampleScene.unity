@@ -12781,9 +12781,6 @@ MonoBehaviour:
   scoreNumDigits: 8
   scoreTextFormat: 'Score: {0}'
   scoreText: {fileID: 729927934}
-  subscreenAnimDuration: 2
-  subScreens:
-  - {fileID: 738687947}
 --- !u!114 &2063657532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12797,6 +12794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 2
+  gameOverPanel: {fileID: 738687947}
   disappearPanel: {fileID: 1513772260}
 --- !u!114 &2063657533
 MonoBehaviour:
@@ -12946,9 +12944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2412fec25fc28a42bae2752686c7899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartGameButton: Submit
+  startGameButton: Submit
   audioFadeTime: 1
-  GameStarted: 0
+  gameStarted: 0
 --- !u!1001 &4410430283203762979
 PrefabInstance:
   m_ObjectHideFlags: 0

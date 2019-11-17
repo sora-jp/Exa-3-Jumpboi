@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DiamondOverrideBehaviour : AdditionPositionOverrideBehaviour
 {
@@ -8,16 +6,16 @@ public class DiamondOverrideBehaviour : AdditionPositionOverrideBehaviour
 
     public override void PositionOnPlatform(Transform platform)
     {
-        var m_halfScreenWidth = Camera.main.orthographicSize * Camera.main.aspect;
+        var halfScreenWidth = Camera.main.orthographicSize * Camera.main.aspect;
 
-        float x = 0;
+        float x;
         if (platform.position.x < 0)
         {
-            x = -(platform.position.x + m_halfScreenWidth);
+            x = -(platform.position.x + halfScreenWidth);
         }
         else
         {
-            x = m_halfScreenWidth - platform.position.x;
+            x = halfScreenWidth - platform.position.x;
         }
 
         x /= 2;
