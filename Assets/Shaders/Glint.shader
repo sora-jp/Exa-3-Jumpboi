@@ -11,10 +11,10 @@
 	}
 	SubShader
 	{
-		Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+		Tags { "RenderType"="Transparent" "Queue"="Transparent" } // Transparent queue
 		LOD 100
 
-		Blend SrcAlpha OneMinusSrcAlpha
+		Blend SrcAlpha OneMinusSrcAlpha // Normal alpha blending
 
         Pass
         {
@@ -54,9 +54,14 @@
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
 
+				// X pixel for current fragment.
 				float xPx = i.uv.x * _PxPerUnit;
+
+				// Current left edge for the shine
 				float xCur = ((_Time.y * _Speed) % 1) * ((_PxPerUnit + _ShinePxWidth * 2)) - _ShinePxWidth;
 
+				// If between the left and right edges of shine, tint by _ShineTint, otherwise tint by _NShineTint.
+				// The ?: operator actaully saves time here, because of how gpu's work.
 				col *= (xPx > xCur&& xPx < xCur + _ShinePxWidth) ? _ShineTint : _NShineTint;
 
                 return col;

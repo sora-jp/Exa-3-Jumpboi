@@ -1248,7 +1248,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  musicVolume: 0.1
+  musicVolume: 0.2
   sfxVolume: 0.2
   musicSource: {fileID: 1841369484}
   sfxSource: {fileID: 481909079}
